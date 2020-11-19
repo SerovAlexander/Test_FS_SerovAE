@@ -8,10 +8,13 @@
 // ----------------------------------------------------------------------------
 
 import Alamofire
+import Foundation
 
 // ----------------------------------------------------------------------------
 
 final class ITunesSearchService {
+
+    public typealias CompletionAlbums = (Result<[ITunesAlbumModel], Error>) -> Void
 
     private let decoder = JSONDecoder()
 
@@ -28,7 +31,7 @@ final class ITunesSearchService {
     }
 
 
-    public func getAlbums(forQuery query: String, then commpletion: @escaping (AFResult<[String: Any]?>) -> Void) {
+    public func getAlbums(forQuery query: String, then completion: @escaping CompletionAlbums) {
         var parameters: Parameters = [:]
         parameters[Parameter.query] = query
         parameters[Parameter.regionCode] = defaultRegionCode
@@ -37,15 +40,24 @@ final class ITunesSearchService {
 
         let request = WebRequest(method: .get, url: baseUrl, parameters: parameters)
 
-        AF.request(request.url, method: request.method, parameters: request.parameters).responseJSON { response in
+        AF.request(request.url, method: request.method, parameters: request.parameters).responseData { [weak self] response in
+            guard let self = self else {
+                completion(.success([]))
+                return
+            }
             switch response.result {
-            case let .success(json):
-                commpletion(.success(json as? [String: Any]))
+            case let .success(data):
+                do {
+                    let result = try self.decoder.decode(ITunesSearchResult<ITunesAlbumModel>.self, from: data)
+                    let albums = result.results
+                    completion(.success(albums))
+                } catch {
+                    print(error)
+                    completion(.failure(error))
+                }
             case let .failure(error):
-                commpletion(.failure(error))
+                completion(.failure(error))
             }
         }
     }
-
-
 }

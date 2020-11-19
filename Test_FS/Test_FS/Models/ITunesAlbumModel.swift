@@ -23,13 +23,4 @@ public struct ITunesAlbumModel: Codable {
         case artistName, collectionName
         case artwork = "artworkUrl100"
     }
-
-    //MARK: - Init
-
-    init(artistName: String, collectionName: String, artwork: String) {
-        self.artistName = artistName
-        self.collectionName = collectionName
-        self.artwork = artwork
-    }
-
 }

@@ -14,21 +14,25 @@ import UIKit
 class AlbumsListCVC: UICollectionViewController {
 
     var iTunesSearch = ITunesSearchService()
+    var albums: [ITunesAlbumModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Search"
 
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Inner.reuseIdentifier)
 
-//        iTunesSearch.getAlbums(forQuery: "Jay-z") { result in
-//            switch result {
-//            case let .success(json):
-//                print(json ?? [:])
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
+        iTunesSearch.getAlbums(forQuery: "Jay Z") { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(albums):
+                self.albums = albums
+                print(albums)
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
 // ----------------------------------------------------------------------------
@@ -36,20 +40,18 @@ class AlbumsListCVC: UICollectionViewController {
 // ----------------------------------------------------------------------------
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return albums.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Inner.reuseIdentifier, for: indexPath)
-
-
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Inner.reuseIdentifier, for: indexPath) as? AlbumListCell else { return UICollectionViewCell() }
+        let album = albums[indexPath.row]
+        cell.Configure(with: album)
         return cell
     }
 
@@ -64,4 +66,11 @@ class AlbumsListCVC: UICollectionViewController {
     }
 
 
+}
+
+extension UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width/2.5, height: collectionView.frame.height/2)
+    }
 }

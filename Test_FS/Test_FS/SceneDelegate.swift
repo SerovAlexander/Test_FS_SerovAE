@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.windowScene = windowsScene
         self.window?.makeKeyAndVisible()
         let flowLayout = UICollectionViewFlowLayout()
-        let mainViewController = AlbumsListCVC(collectionViewLayout: flowLayout)
+        let mainViewController = CollectionViewController(collectionViewLayout: flowLayout)
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
         self.window?.rootViewController = navigationViewController
     }
