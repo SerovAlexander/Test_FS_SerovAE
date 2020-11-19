@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,9 @@
 		8110F32425665EB6001671B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8110F32325665EB6001671B2 /* Assets.xcassets */; };
 		8110F32725665EB6001671B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8110F32525665EB6001671B2 /* LaunchScreen.storyboard */; };
 		8110F33C25666608001671B2 /* AlbumsListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F33B25666608001671B2 /* AlbumsListCVC.swift */; };
-		8110F33F25666793001671B2 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F33E25666793001671B2 /* CollectionViewController.swift */; };
+		8110F34E25667439001671B2 /* ITunesSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F34D25667439001671B2 /* ITunesSearchService.swift */; };
+		8110F352256674FC001671B2 /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F351256674FC001671B2 /* WebRequest.swift */; };
+		8110F355256696C2001671B2 /* ITunesAlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F354256696C2001671B2 /* ITunesAlbumModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +29,9 @@
 		8110F32625665EB6001671B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8110F32825665EB6001671B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8110F33B25666608001671B2 /* AlbumsListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListCVC.swift; sourceTree = "<group>"; };
-		8110F33E25666793001671B2 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		8110F34D25667439001671B2 /* ITunesSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSearchService.swift; sourceTree = "<group>"; };
+		8110F351256674FC001671B2 /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
+		8110F354256696C2001671B2 /* ITunesAlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAlbumModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 		8110F332256664AE001671B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8110F354256696C2001671B2 /* ITunesAlbumModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -94,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				8110F33B25666608001671B2 /* AlbumsListCVC.swift */,
-				8110F33E25666793001671B2 /* CollectionViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,6 +106,8 @@
 		8110F34525666F7A001671B2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				8110F34D25667439001671B2 /* ITunesSearchService.swift */,
+				8110F351256674FC001671B2 /* WebRequest.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -112,7 +118,6 @@
 				128107685EE1D924EA41088D /* Pods-Test_FS.debug.xcconfig */,
 				76FC4A97FB75C492BE05673D /* Pods-Test_FS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -237,10 +242,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8110F33F25666793001671B2 /* CollectionViewController.swift in Sources */,
+				8110F355256696C2001671B2 /* ITunesAlbumModel.swift in Sources */,
 				8110F31B25665EB5001671B2 /* AppDelegate.swift in Sources */,
 				8110F33C25666608001671B2 /* AlbumsListCVC.swift in Sources */,
 				8110F31D25665EB5001671B2 /* SceneDelegate.swift in Sources */,
+				8110F34E25667439001671B2 /* ITunesSearchService.swift in Sources */,
+				8110F352256674FC001671B2 /* WebRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +388,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W2Z9PQJ76T;
 				INFOPLIST_FILE = Test_FS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -400,6 +408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W2Z9PQJ76T;
 				INFOPLIST_FILE = Test_FS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
