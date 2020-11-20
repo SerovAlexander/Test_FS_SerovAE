@@ -18,8 +18,8 @@ final class ITunesSearchService {
 
     private let decoder = JSONDecoder()
 
-    private let baseUrl = "https://itunes.apple.com/search"
-    private let defaultRegionCode = "RU"
+    private let baseUrl = "https://itunes.apple.com/search?"
+    private let defaultRegionCode = "ru"
     private let mediaType = "music"
     private let entity = "album"
 
@@ -27,7 +27,7 @@ final class ITunesSearchService {
         static let query = "term"
         static let regionCode = "country"
         static let mediaType = "media"
-        static let entity = "entyti"
+        static let entity = "entity"
     }
 
 

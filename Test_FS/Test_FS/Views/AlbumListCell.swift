@@ -21,6 +21,7 @@ class AlbumListCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setupAlbumImage()
     }
 
     required init?(coder: NSCoder) {

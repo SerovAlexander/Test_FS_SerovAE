@@ -18,7 +18,7 @@ class CollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(AlbumListCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         iTunesSearch.getAlbums(forQuery: "Jay Z") { [weak self] result in
             guard let self = self else { return }
@@ -51,9 +51,9 @@ class CollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        
-        cell.backgroundColor = .red
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AlbumListCell else { return UICollectionViewCell() }
+        let album = albums[indexPath.row]
+        cell.Configure(with: album)
     
         return cell
     }
