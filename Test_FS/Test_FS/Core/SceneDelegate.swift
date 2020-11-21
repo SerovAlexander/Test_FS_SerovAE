@@ -18,7 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.windowScene = windowsScene
         self.window?.makeKeyAndVisible()
         let flowLayout = UICollectionViewFlowLayout()
-        let mainViewController = CollectionViewController(collectionViewLayout: flowLayout)
+        flowLayout.itemSize = CGSize(width: 150, height: 160)
+        flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        flowLayout.minimumInteritemSpacing = 20
+        
+        
+        let mainViewController = AlbumListCVC(collectionViewLayout: flowLayout)
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
         self.window?.rootViewController = navigationViewController
     }

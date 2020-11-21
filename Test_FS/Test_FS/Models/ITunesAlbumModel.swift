@@ -16,11 +16,12 @@ public struct ITunesAlbumModel: Codable {
     public var artistName: String
     public var collectionName: String
     public var artwork: String
+    public var collectionId: Int
 
     // MARK: - Codable
 
     private enum CodingKeys: String, CodingKey {
-        case artistName, collectionName
+        case artistName, collectionName, collectionId
         case artwork = "artworkUrl100"
     }
 }
