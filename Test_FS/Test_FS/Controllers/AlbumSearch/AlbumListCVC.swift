@@ -15,7 +15,7 @@ class AlbumListCVC: UICollectionViewController {
 
     let searchBar = UISearchBar()
     var iTunesSearch = ITunesSearchService()
-    var albums: [ITunesAlbumModel] = []
+    var albums: [AlbumModel] = []
 
     //MARK: - Life Cycle
 
@@ -23,6 +23,7 @@ class AlbumListCVC: UICollectionViewController {
         super.viewDidLoad()
         collectionView.backgroundColor = .systemBackground
         searchBar.sizeToFit()
+        searchBar.placeholder = "Search album"
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         // Register cell classes
@@ -33,7 +34,7 @@ class AlbumListCVC: UICollectionViewController {
     //MARK: - Private Methods
 
     private func requsetAlbum(with query: String) {
-        iTunesSearch.getAlbums(forQuery: query) { [weak self] result in
+        iTunesSearch.itunesRequest(with: .searchUrl, forQuery: query, id: nil) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(albums):
@@ -66,7 +67,10 @@ class AlbumListCVC: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = AlbumDetailVC()
-        navigationController?.pushViewController(vc, animated: true)
+        vc.collectionId = String(albums[indexPath.row].collectionId ?? 0)
+        vc.albumImage = albums[indexPath.row].artwork
+        present(vc, animated: true, completion: nil)
+//        showDetailViewController(vc, sender: self)
     }
 }
     //MARK: - SearchBar Delegate

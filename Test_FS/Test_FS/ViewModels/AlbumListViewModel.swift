@@ -17,7 +17,7 @@ class AlbumListViewModel {
     let collectionName: String
     let artwork: String
 
-    init(albumModel: ITunesAlbumModel) {
+    init(albumModel: AlbumModel) {
         self.artistName = albumModel.artistName
         self.collectionName = albumModel.collectionName
         self.artwork = albumModel.artwork

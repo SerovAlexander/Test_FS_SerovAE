@@ -33,7 +33,7 @@ class AlbumListCell: UICollectionViewCell {
 
     //MARK: - Public Methods
 
-    func Configure(with model: ITunesAlbumModel) {
+    func Configure(with model: AlbumModel) {
         let url = URL(string: model.artwork)
         self.albumImageView.kf.setImage(with: url)
         self.albumNameLabel.text = model.collectionName

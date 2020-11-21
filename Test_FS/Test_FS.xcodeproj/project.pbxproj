@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		048C05A025698B53004FD273 /* AlbumDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C059F25698B53004FD273 /* AlbumDetailModel.swift */; };
+		048C05A825698FB7004FD273 /* AlbumDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048C05A725698FB7004FD273 /* AlbumDetailCell.swift */; };
 		04CD091425692434000CF8AD /* AlbumDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CD091325692434000CF8AD /* AlbumDetailVC.swift */; };
 		34CF6DCFBBB2113BA31E41BF /* Pods_Test_FS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1FD1578DA9F487ECDD58D7 /* Pods_Test_FS.framework */; };
 		810EA4372566C24E000C0394 /* AlbumListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810EA4362566C24E000C0394 /* AlbumListCVC.swift */; };
@@ -16,13 +18,15 @@
 		8110F32725665EB6001671B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8110F32525665EB6001671B2 /* LaunchScreen.storyboard */; };
 		8110F34E25667439001671B2 /* ITunesSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F34D25667439001671B2 /* ITunesSearchService.swift */; };
 		8110F352256674FC001671B2 /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F351256674FC001671B2 /* WebRequest.swift */; };
-		8110F355256696C2001671B2 /* ITunesAlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F354256696C2001671B2 /* ITunesAlbumModel.swift */; };
+		8110F355256696C2001671B2 /* AlbumModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110F354256696C2001671B2 /* AlbumModel.swift */; };
 		8193DAEA2566A10C00E334C1 /* AlbumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8193DAE92566A10C00E334C1 /* AlbumListViewModel.swift */; };
 		8193DAED2566AECB00E334C1 /* ITunesSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8193DAEC2566AECB00E334C1 /* ITunesSearchResult.swift */; };
 		8193DAF62566B4B500E334C1 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8193DAF52566B4B500E334C1 /* AlbumListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		048C059F25698B53004FD273 /* AlbumDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailModel.swift; sourceTree = "<group>"; };
+		048C05A725698FB7004FD273 /* AlbumDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailCell.swift; sourceTree = "<group>"; };
 		04CD091325692434000CF8AD /* AlbumDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailVC.swift; sourceTree = "<group>"; };
 		128107685EE1D924EA41088D /* Pods-Test_FS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test_FS.debug.xcconfig"; path = "Target Support Files/Pods-Test_FS/Pods-Test_FS.debug.xcconfig"; sourceTree = "<group>"; };
 		5D1FD1578DA9F487ECDD58D7 /* Pods_Test_FS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Test_FS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,7 +40,7 @@
 		8110F32825665EB6001671B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8110F34D25667439001671B2 /* ITunesSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSearchService.swift; sourceTree = "<group>"; };
 		8110F351256674FC001671B2 /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
-		8110F354256696C2001671B2 /* ITunesAlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAlbumModel.swift; sourceTree = "<group>"; };
+		8110F354256696C2001671B2 /* AlbumModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumModel.swift; sourceTree = "<group>"; };
 		8193DAE92566A10C00E334C1 /* AlbumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListViewModel.swift; sourceTree = "<group>"; };
 		8193DAEC2566AECB00E334C1 /* ITunesSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesSearchResult.swift; sourceTree = "<group>"; };
 		8193DAF52566B4B500E334C1 /* AlbumListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 		04CD0912256923F4000CF8AD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				048C05A725698FB7004FD273 /* AlbumDetailCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,7 +153,8 @@
 		8110F332256664AE001671B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8110F354256696C2001671B2 /* ITunesAlbumModel.swift */,
+				8110F354256696C2001671B2 /* AlbumModel.swift */,
+				048C059F25698B53004FD273 /* AlbumDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -311,13 +317,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8193DAED2566AECB00E334C1 /* ITunesSearchResult.swift in Sources */,
-				8110F355256696C2001671B2 /* ITunesAlbumModel.swift in Sources */,
+				8110F355256696C2001671B2 /* AlbumModel.swift in Sources */,
 				8110F31B25665EB5001671B2 /* AppDelegate.swift in Sources */,
 				04CD091425692434000CF8AD /* AlbumDetailVC.swift in Sources */,
+				048C05A825698FB7004FD273 /* AlbumDetailCell.swift in Sources */,
 				810EA4372566C24E000C0394 /* AlbumListCVC.swift in Sources */,
 				8110F31D25665EB5001671B2 /* SceneDelegate.swift in Sources */,
 				8110F34E25667439001671B2 /* ITunesSearchService.swift in Sources */,
 				8193DAEA2566A10C00E334C1 /* AlbumListViewModel.swift in Sources */,
+				048C05A025698B53004FD273 /* AlbumDetailModel.swift in Sources */,
 				8110F352256674FC001671B2 /* WebRequest.swift in Sources */,
 				8193DAF62566B4B500E334C1 /* AlbumListCell.swift in Sources */,
 			);
