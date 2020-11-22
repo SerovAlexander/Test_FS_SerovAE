@@ -14,7 +14,7 @@ import Foundation
 
 final class ITunesSearchService {
 
-    public typealias CompletionAlbums = (Result<[AlbumModel], Error>) -> Void
+    public typealias CompletionAlbums = (Result<[AlbumSearchModel], Error>) -> Void
 
     private let decoder = JSONDecoder()
 
@@ -40,7 +40,6 @@ final class ITunesSearchService {
     public func itunesRequest(with url: BaseUrl, forQuery query: String?, id: String?, then completion: @escaping CompletionAlbums) {
 
         let parameters = createParameters(url: url, query: query, id: id)
-
         let request = WebRequest(method: .get, url: url.rawValue, parameters: parameters)
 
         AF.request(request.url, method: request.method, parameters: request.parameters).responseData { [weak self] response in
@@ -52,9 +51,8 @@ final class ITunesSearchService {
             switch response.result {
             case let .success(data):
                 do {
-                    let result = try self.decoder.decode(ITunesSearchResult<AlbumModel>.self, from: data)
+                    let result = try self.decoder.decode(ITunesSearchResult<AlbumSearchModel>.self, from: data)
                     let albums = result.results
-                    print(albums)
                     completion(.success(albums))
                 } catch {
                     print(error)

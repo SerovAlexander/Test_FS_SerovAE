@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 
-//  AlbumListCell.swift
+//  AlbumSearchCell.swift
 //  Test_FS
 //
 //  Created by Серов Александр Евгеньевич on 19.11.2020.
@@ -13,7 +13,7 @@ import UIKit
 
 // ----------------------------------------------------------------------------
 
-class AlbumListCell: UICollectionViewCell {
+class AlbumSearchCell: UICollectionViewCell {
 
     let albumImageView = UIImageView()
     let albumNameLabel = UILabel()
@@ -33,7 +33,7 @@ class AlbumListCell: UICollectionViewCell {
 
     //MARK: - Public Methods
 
-    func Configure(with model: AlbumModel) {
+    func Configure(with model: AlbumSearchModel) {
         let url = URL(string: model.artwork)
         self.albumImageView.kf.setImage(with: url)
         self.albumNameLabel.text = model.collectionName

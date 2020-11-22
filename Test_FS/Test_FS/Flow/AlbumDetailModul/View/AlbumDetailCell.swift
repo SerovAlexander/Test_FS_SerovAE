@@ -28,7 +28,7 @@ class AlbumDetailCell: UITableViewCell {
 
     //MARK: - Public Method
 
-    func cellConfigure(with album: AlbumModel) {
+    func cellConfigure(with album: AlbumSearchModel) {
         trackNumberLabel.text = String(album.trackNumber ?? 1)
         trackNameLabel.text = album.trackName ?? ""
     }

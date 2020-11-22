@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         flowLayout.minimumInteritemSpacing = 20
         
         
-        let mainViewController = AlbumListCVC(collectionViewLayout: flowLayout)
+        let mainViewController = AlbumSearchController(collectionViewLayout: flowLayout)
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
         self.window?.rootViewController = navigationViewController
     }

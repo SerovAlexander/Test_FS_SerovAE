@@ -1,5 +1,5 @@
 //
-//  AlbumListCVC.swift
+//  AlbumSearchController.swift
 //  Test_FS
 //
 //  Created by Серов Александр Евгеньевич on 19.11.2020.
@@ -9,13 +9,13 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class AlbumListCVC: UICollectionViewController {
+class AlbumSearchController: UICollectionViewController {
 
     //MARK: - UI
 
     let searchBar = UISearchBar()
     var iTunesSearch = ITunesSearchService()
-    var albums: [AlbumModel] = []
+    var albums: [AlbumSearchModel] = []
 
     //MARK: - Life Cycle
 
@@ -27,7 +27,7 @@ class AlbumListCVC: UICollectionViewController {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         // Register cell classes
-        self.collectionView!.register(AlbumListCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(AlbumSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
     }
 
@@ -55,7 +55,7 @@ class AlbumListCVC: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AlbumListCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AlbumSearchCell else { return UICollectionViewCell() }
 
         let album = albums[indexPath.row]
         cell.Configure(with: album)
@@ -67,15 +67,15 @@ class AlbumListCVC: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = AlbumDetailVC()
-        vc.collectionId = String(albums[indexPath.row].collectionId ?? 0)
-        vc.albumImage = albums[indexPath.row].artwork
+        let album = albums[indexPath.row]
+        vc.id = String(album.collectionId)
+    
         present(vc, animated: true, completion: nil)
-//        showDetailViewController(vc, sender: self)
     }
 }
     //MARK: - SearchBar Delegate
 
-extension AlbumListCVC: UISearchBarDelegate {
+extension AlbumSearchController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text else {

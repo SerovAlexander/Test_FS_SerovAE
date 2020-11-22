@@ -11,12 +11,12 @@ import Foundation
 
 // ----------------------------------------------------------------------------
 
-public struct AlbumModel: Codable {
+public struct AlbumSearchModel: Codable {
 
     public var artistName: String
     public var collectionName: String
     public var artwork: String
-    public var collectionId: Int?
+    public var collectionId: Int
     public var trackName: String?
     public var trackNumber: Int?
 
