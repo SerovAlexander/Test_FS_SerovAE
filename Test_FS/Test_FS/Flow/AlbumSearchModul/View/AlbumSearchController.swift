@@ -14,65 +14,67 @@ class AlbumSearchController: UICollectionViewController {
     //MARK: - UI
 
     let searchBar = UISearchBar()
-    var iTunesSearch = ITunesSearchService()
-    var albums: [AlbumSearchModel] = []
+    var presenter: AlbumSearchPresenterProtocol!
 
     //MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .systemBackground
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search album"
-        navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        // Register cell classes
-        self.collectionView!.register(AlbumSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        configureController()
+        ConfigureSearchBar()
     }
 
-    //MARK: - Private Methods
+    //MARK: - Configure UI
 
-    private func requsetAlbum(with query: String) {
-        iTunesSearch.itunesRequest(with: .searchUrl, forQuery: query, id: nil) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(albums):
-                self.albums = albums
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            case let .failure(error):
-                print(error)
-            }
-        }
+    private func configureController() {
+        self.collectionView!.register(AlbumSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .systemBackground
+
+    }
+    
+    private func ConfigureSearchBar() {
+        navigationItem.titleView = searchBar
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        searchBar.placeholder = "Search album"
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albums.count
+        return presenter.albums?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? AlbumSearchCell else { return UICollectionViewCell() }
-
-        let album = albums[indexPath.row]
+        guard let album = presenter.albums?[indexPath.row] else { return UICollectionViewCell() }
         cell.Configure(with: album)
+        cell.backgroundColor = .systemGray5
+        cell.layer.cornerRadius = 15
 
         return cell
     }
-    
+
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = AlbumDetailVC()
-        let album = albums[indexPath.row]
-        vc.id = String(album.collectionId)
-    
-        present(vc, animated: true, completion: nil)
+        let id = presenter.albums?[indexPath.row].collectionId ?? 0
+        let albumDetailController = Builder.createAlbumDetailController(id: id)
+        navigationController?.pushViewController(albumDetailController, animated: true)
     }
 }
+
+extension AlbumSearchController: AlbumSearchControllerProtocol {
+    func succes() {
+        collectionView.reloadData()
+    }
+    
+    func failure(error: Error) {
+        print(error)
+    }
+
+}
+
     //MARK: - SearchBar Delegate
 
 extension AlbumSearchController: UISearchBarDelegate {
@@ -84,7 +86,13 @@ extension AlbumSearchController: UISearchBarDelegate {
             return
         }
         searchBar.resignFirstResponder()
-        self.requsetAlbum(with: query)
+        presenter.searchAlbum(with: query)
     }
 
+}
+
+extension AlbumSearchController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (collectionView.frame.width / 2.2), height: 200)
+    }
 }

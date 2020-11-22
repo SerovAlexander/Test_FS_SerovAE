@@ -60,20 +60,21 @@ class AlbumSearchCell: UICollectionViewCell {
     //Setup constreints with SnapKit
     private func setupConstreints() {
         albumImageView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.width.equalTo(120)
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.width.equalTo(140)
         }
 
         albumNameLabel.snp.makeConstraints { make in
             make.top.equalTo(albumImageView.snp.bottom).offset(2)
-            make.left.equalTo(13)
-            make.right.equalTo(2)
+            make.left.equalTo(albumImageView.snp.left)
+            make.right.equalToSuperview().inset(10)
         }
 
         artistNameLabel.snp.makeConstraints { make in
             make.top.equalTo(albumNameLabel.snp.bottom).offset(1)
-            make.left.equalTo(13)
-            make.right.equalTo(2)
+            make.left.equalTo(albumImageView.snp.left)
+            make.right.equalToSuperview().inset(10)
         }
     }
 

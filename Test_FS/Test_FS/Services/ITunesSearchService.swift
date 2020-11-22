@@ -14,13 +14,18 @@ import Foundation
 
 final class ITunesSearchService {
 
-    public typealias CompletionAlbums = (Result<[AlbumSearchModel], Error>) -> Void
+    public typealias CompletionAlbums = (Result<[modelProtocol], Error>) -> Void
 
     private let decoder = JSONDecoder()
 
      enum BaseUrl: String {
         case searchUrl = "https://itunes.apple.com/search?"
         case lookupUrl = "https://itunes.apple.com/lookup?"
+    }
+    
+    enum ModelType {
+        case albumSearchModel
+        case albumDetailModel
     }
     
     private let defaultRegionCode = "RU"
@@ -37,7 +42,7 @@ final class ITunesSearchService {
     }
 
 
-    public func itunesRequest(with url: BaseUrl, forQuery query: String?, id: String?, then completion: @escaping CompletionAlbums) {
+    func itunesRequest(with url: BaseUrl, forQuery query: String?, id: String?, modelType: ModelType, then completion: @escaping CompletionAlbums) {
 
         let parameters = createParameters(url: url, query: query, id: id)
         let request = WebRequest(method: .get, url: url.rawValue, parameters: parameters)
@@ -51,9 +56,16 @@ final class ITunesSearchService {
             switch response.result {
             case let .success(data):
                 do {
-                    let result = try self.decoder.decode(ITunesSearchResult<AlbumSearchModel>.self, from: data)
-                    let albums = result.results
-                    completion(.success(albums))
+                    if modelType == .albumSearchModel {
+                        let result = try self.decoder.decode(ITunesSearchResult<AlbumSearchModel>.self, from: data)
+                        let albums = result.results
+                        completion(.success(albums))
+                    } else if modelType == .albumDetailModel {
+                        let result = try self.decoder.decode(ITunesSearchResult<AlbumDetailModel>.self, from: data)
+                        var albumsDetail = result.results
+                        albumsDetail.remove(at: 0)
+                        completion(.success(albumsDetail))
+                    }
                 } catch {
                     print(error)
                     completion(.failure(error))
@@ -63,7 +75,7 @@ final class ITunesSearchService {
             }
         }
     }
-    
+
     private func createParameters(url: BaseUrl, query: String?, id: String?) -> Parameters {
         var parameters: Parameters = [:]
         switch url {

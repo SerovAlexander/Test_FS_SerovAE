@@ -11,7 +11,10 @@ import Foundation
 
 // ----------------------------------------------------------------------------
 
-public struct AlbumSearchModel: Codable {
+protocol modelProtocol: Codable {
+    
+}
+public struct AlbumSearchModel: Codable, modelProtocol {
 
     public var artistName: String
     public var collectionName: String
