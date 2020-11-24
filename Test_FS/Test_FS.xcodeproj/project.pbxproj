@@ -169,9 +169,8 @@
 		04CD090925691F57000CF8AD /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				04112DF0256BF371008AE54D /* Helpers */,
 				04112DE9256B0807008AE54D /* Extension */,
-				8110F31A25665EB5001671B2 /* AppDelegate.swift */,
-				8110F31C25665EB5001671B2 /* SceneDelegate.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -191,6 +190,18 @@
 				8110F32825665EB6001671B2 /* Info.plist */,
 			);
 			path = Environments;
+			sourceTree = "<group>";
+		};
+		04F59DED256DA27E00A35094 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				8110F31A25665EB5001671B2 /* AppDelegate.swift */,
+				8110F31C25665EB5001671B2 /* SceneDelegate.swift */,
+				04CD090925691F57000CF8AD /* Core */,
+				8110F34525666F7A001671B2 /* Services */,
+				048C05C3256AC998004FD273 /* Flow */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		8110F30E25665EB5001671B2 = {
@@ -214,10 +225,7 @@
 		8110F31925665EB5001671B2 /* Test_FS */ = {
 			isa = PBXGroup;
 			children = (
-				04112DF0256BF371008AE54D /* Helpers */,
-				04CD090925691F57000CF8AD /* Core */,
-				8110F34525666F7A001671B2 /* Services */,
-				048C05C3256AC998004FD273 /* Flow */,
+				04F59DED256DA27E00A35094 /* Application */,
 				04CD090F25692269000CF8AD /* Environments */,
 				04CD090B25691F83000CF8AD /* SupportingFiles */,
 			);
