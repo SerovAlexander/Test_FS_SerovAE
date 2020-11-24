@@ -11,7 +11,6 @@ import UIKit
 
 class AlbumDetailController: UIViewController {
 
-
     var presenter: AlbumDetailPresenter!
 
     //MARK: - UI
@@ -39,6 +38,7 @@ class AlbumDetailController: UIViewController {
         setupCollectionNameLabel()
         setupMusicStyleLabel()
         setupTrackCountLabel()
+        setupReleaseDateLabel()
         setupConstreints()
     }
 
@@ -77,13 +77,19 @@ class AlbumDetailController: UIViewController {
         trackCountLabel.font = UIFont.systemFont(ofSize: 12)
         trackCountLabel.textColor = .systemGray3
     }
+    
+    private func setupReleaseDateLabel() {
+        self.view.addSubview(releaseDateLabel)
+        releaseDateLabel.font = UIFont.systemFont(ofSize: 12)
+        releaseDateLabel.textColor = .systemGray3
+    }
 
     //Setup constreints with SnapKit
     private func setupConstreints() {
         albumImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             make.left.equalToSuperview().inset(10)
-            make.height.width.equalTo(100)
+            make.height.width.equalTo(130)
         }
 
         tableView.snp.makeConstraints { make in
@@ -114,6 +120,12 @@ class AlbumDetailController: UIViewController {
             make.left.equalTo(musicStyleLabel.snp.left)
             make.right.equalTo(musicStyleLabel.snp.right)
         }
+        
+        releaseDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(trackCountLabel.snp.bottom).offset(1)
+            make.left.equalTo(musicStyleLabel.snp.left)
+            make.right.equalTo(musicStyleLabel.snp.right)
+        }
     }
 
 }
@@ -121,18 +133,19 @@ class AlbumDetailController: UIViewController {
 extension AlbumDetailController: AlbumDetailControllerProtocol {
     func succes() {
         guard let albumDetail  = presenter.albumDetail else { return }
-        print(albumDetail)
         let url = URL(string: albumDetail[0].artwork)
         self.albumImageView.kf.setImage(with: url)
         self.artistNameLabel.text = albumDetail[0].artistName
         self.collectionNameLabel.text = albumDetail[0].collectionName
         self.musicStyleLabel.text = albumDetail[0].musicStyle
         self.trackCountLabel.text = "Объектов:" + " " + String(albumDetail[0].trackCount ?? 0)
+        
+        self.releaseDateLabel.text = "Релиз:" + " " + (albumDetail[0].releaseDate?.toStringDate() ?? "Дата не известна") 
         self.tableView.reloadData()
     }
 
     func failure(error: Error) {
-        print(error)
+        Alerts.presentAlert(view: self.view, viewController: self)
     }
 
 }

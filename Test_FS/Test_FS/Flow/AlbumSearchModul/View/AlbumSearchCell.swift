@@ -18,12 +18,14 @@ class AlbumSearchCell: UICollectionViewCell {
     let albumImageView = UIImageView()
     let albumNameLabel = UILabel()
     let artistNameLabel = UILabel()
+    let collectionExplicitness = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupAlbumImage()
         setupAlbumName()
         setupArtistName()
+        setupCollectionExplicitnes()
         setupConstreints()
     }
 
@@ -38,6 +40,12 @@ class AlbumSearchCell: UICollectionViewCell {
         self.albumImageView.kf.setImage(with: url)
         self.albumNameLabel.text = model.collectionName
         self.artistNameLabel.text = model.artistName
+
+        if isExplicit(album: model.collectionExplicitness) {
+            collectionExplicitness.isHidden = false
+        } else {
+            collectionExplicitness.isHidden = true
+        }
     }
 
     //MARK: - Privarte Methods
@@ -57,6 +65,12 @@ class AlbumSearchCell: UICollectionViewCell {
         artistNameLabel.font = albumNameLabel.font.withSize(12)
     }
 
+    private func setupCollectionExplicitnes() {
+        contentView.addSubview(collectionExplicitness)
+        collectionExplicitness.contentMode = .scaleAspectFit
+        collectionExplicitness.image = UIImage(named: "explicit")
+    }
+
     //Setup constreints with SnapKit
     private func setupConstreints() {
         albumImageView.snp.makeConstraints { make in
@@ -68,7 +82,7 @@ class AlbumSearchCell: UICollectionViewCell {
         albumNameLabel.snp.makeConstraints { make in
             make.top.equalTo(albumImageView.snp.bottom).offset(2)
             make.left.equalTo(albumImageView.snp.left)
-            make.right.equalToSuperview().inset(10)
+            make.right.equalToSuperview().inset(20)
         }
 
         artistNameLabel.snp.makeConstraints { make in
@@ -76,6 +90,24 @@ class AlbumSearchCell: UICollectionViewCell {
             make.left.equalTo(albumImageView.snp.left)
             make.right.equalToSuperview().inset(10)
         }
+        
+        collectionExplicitness.snp.makeConstraints { make in
+            make.centerY.equalTo(albumNameLabel.snp.centerY)
+            make.left.equalTo(albumNameLabel.snp.right).inset(5)
+            make.width.height.equalTo(12)
+        }
+    }
+
+    //Сhecking if the album is explicit retur true, else retur false.
+    private func isExplicit(album: String) -> Bool {
+        var isExplicit = false
+        if album == "explicit" {
+            isExplicit = true
+        } else if album == "cleaned" {
+            isExplicit = false
+        }
+
+        return isExplicit
     }
 
 }

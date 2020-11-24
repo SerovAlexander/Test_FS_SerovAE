@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AlbumDetailModel: Codable, modelProtocol {
+public struct AlbumDetailModel: Codable {
 
     public var artistName: String
     public var collectionName: String
@@ -17,12 +17,13 @@ public struct AlbumDetailModel: Codable, modelProtocol {
     public var musicStyle: String?
     public var trackCount: Int?
     public var releaseDate: String?
+    public var wrapperType: String
     
 
     // MARK: - Codable
 
     private enum CodingKeys: String, CodingKey {
-        case artistName, collectionName,trackName, trackNumber, releaseDate, trackCount
+        case artistName, collectionName,trackName, trackNumber, releaseDate, trackCount, wrapperType
         case artwork = "artworkUrl100"
         case musicStyle = "primaryGenreName"
     }

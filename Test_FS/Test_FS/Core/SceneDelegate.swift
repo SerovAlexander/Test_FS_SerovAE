@@ -17,13 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowsScene.coordinateSpace.bounds)
         self.window?.windowScene = windowsScene
         self.window?.makeKeyAndVisible()
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: 150, height: 160)
-        flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
-        flowLayout.minimumInteritemSpacing = 20
-        
-        
-        let mainViewController = Builder.createAlbumSerachController()
+        let mainViewController = ControllersBuilder.createAlbumSerachController()
         let navigationViewController = UINavigationController(rootViewController: mainViewController)
         self.window?.rootViewController = navigationViewController
     }

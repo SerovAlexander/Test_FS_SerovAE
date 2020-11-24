@@ -8,12 +8,17 @@
 import Foundation
 
 extension String {
-    func toDate(dateFormat: String) -> Date? {
+    
+  func toStringDate() -> String? {
+    let dateFormatterInput = DateFormatter()
+    let dateFormatterOutput = DateFormatter()
+    dateFormatterInput.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    dateFormatterOutput.dateFormat = "dd-MM-yyyy"
+    dateFormatterOutput.locale = Locale(identifier: "ru_RU")
+    dateFormatterOutput.dateStyle = .medium
+    guard let date = dateFormatterInput.date(from: self) else { return "" }
+    let stringDate = dateFormatterOutput.string(from: date)
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
-
-        let date: Date? = dateFormatter.date(from: self)
-        return date
-    }
+    return stringDate
+  }
 }
