@@ -16,9 +16,9 @@ class AlbumSearchController: UICollectionViewController {
 
     // MARK: - UI
 
-    let searchBar = UISearchBar()
-    let searchImageView = UIImageView()
-    let noResultImageView = UIImageView()
+    private let searchBar = UISearchBar()
+    private let searchImageView = UIImageView()
+    private let noResultImageView = UIImageView()
 
     // MARK: - Properties
     
@@ -28,7 +28,6 @@ class AlbumSearchController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureController()
         configureSearchBar()
         configureNoResultImageView()
@@ -109,15 +108,15 @@ extension AlbumSearchController: AlbumSearchControllerProtocol {
     func showNoResultBackground() {
         self.collectionView.backgroundView = noResultImageView
     }
-    
+
     func showBackground() {
         self.collectionView.backgroundView = searchImageView
     }
-    
+
     func hideBackground() {
         self.collectionView.backgroundView = nil
     }
-    
+
     func refreshData() {
         collectionView.reloadData()
     }
@@ -125,12 +124,19 @@ extension AlbumSearchController: AlbumSearchControllerProtocol {
     func failure(error: Error) {
         Alerts.presentAlert(view: self.view, viewController: self)
     }
+
+    func showIndicator() {
+        self.view.showActivityIndicator()
+    }
+
+    func stopIndicator() {
+        self.view.stopActivitiIndicator()
+    }
 }
 
 // ----------------------------------------------------------------------------
 
 extension AlbumSearchController: UISearchBarDelegate {
-
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text else {
             searchBar.resignFirstResponder()

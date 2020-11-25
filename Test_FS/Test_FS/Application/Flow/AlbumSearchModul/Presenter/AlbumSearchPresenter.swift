@@ -19,17 +19,18 @@ protocol AlbumSearchControllerProtocol: AnyObject {
     func showBackground()
     func hideBackground()
     func showNoResultBackground()
-    
+    func showIndicator()
+    func stopIndicator()
 }
 
 protocol AlbumSearchPresenterProtocol: AnyObject  {
     init(view: AlbumSearchControllerProtocol, networkService: ITunesAlbumSearchService)
-    
+
     func searchAlbum(with query: String)
-    func checkIsEmpty()
     var albums: [AlbumSearchModel]? { get set }
-    
+
 }
+
 
 // ----------------------------------------------------------------------------
 
@@ -40,7 +41,7 @@ class AlbumSearchPresenter: AlbumSearchPresenterProtocol {
     weak var view: AlbumSearchControllerProtocol?
     let networkService: ITunesAlbumSearchService
     var albums: [AlbumSearchModel]?
-    var searchTask: DispatchWorkItem?
+    private var searchTask: DispatchWorkItem?
 
     // MARK: - Init
 
@@ -49,43 +50,61 @@ class AlbumSearchPresenter: AlbumSearchPresenterProtocol {
         self.networkService = networkService
     }
 
-    //MARK: - Methods
+    // MARK: - Public Methods
 
     func searchAlbum(with query: String) {
         searchTask?.cancel()
-        if query.isEmpty {
-            albums = []
-            self.view?.refreshData()
-            self.view?.showBackground()
+        if checkIsQueryEmpty(query: query) {
             return
         }
+        // Create DispatchWorkItem Task
         self.searchTask = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            self.networkService.albumsRequest(with: query) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let albums):
-                    self.albums = albums
-                    DispatchQueue.main.async {
-                        self.view?.refreshData()
-                        self.checkIsEmpty()
-                    }
-                case .failure(let error):
-                    self.view?.failure(error: error)
-                }
-            }
+            self.view?.showIndicator()
+            self.reqest(with: query)
         }
-        // send request with delay
+        // send request with delay using DispatchWorkItem Task
         if let task = searchTask {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: task)
         }
     }
+    // MARK: - Private Methods
 
-    func checkIsEmpty() {
+    private func checkIsAlbumsEmpty() {
         if albums?.isEmpty ?? true {
             self.view?.showNoResultBackground()
         } else {
             self.view?.hideBackground()
         }
     }
+
+    private func checkIsQueryEmpty(query: String) -> Bool {
+        var isEmpty = false
+        if query.isEmpty {
+            albums = []
+            self.view?.refreshData()
+            self.view?.showBackground()
+            isEmpty = true
+        }
+        return isEmpty
+    }
+
+    private func reqest(with query: String) {
+        self.networkService.albumsRequest(with: query) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let albums):
+                self.albums = albums
+                DispatchQueue.main.async {
+                    self.view?.stopIndicator()
+                    self.view?.refreshData()
+                    self.checkIsAlbumsEmpty()
+                }
+            case .failure(let error):
+                self.view?.stopIndicator()
+                self.view?.failure(error: error)
+            }
+        }
+    }
+
 }
