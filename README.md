@@ -8,4 +8,4 @@ Application for searching albums and detailed information about them using the i
 - Other frameworks:
   - Alamofire for HTTP Networking,
   - SnapKit for work with autolayout,
-  -Kingfisher for work with images.
+  - Kingfisher for work with images.
