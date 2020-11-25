@@ -11,7 +11,6 @@ import Foundation
 
 // Add method to convert date from JSON
 extension String {
-
   func toStringDate() -> String? {
     let dateFormatterInput = DateFormatter()
     let dateFormatterOutput = DateFormatter()

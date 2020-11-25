@@ -58,7 +58,7 @@ class AlbumDetailPresenter: AlbumDetailPresenterProtocol {
         self.reliseDate = reliseDate
     }
 
-    //MARK: - Methods
+    //MARK: - Public Methods
 
     func getAlbumDetail() {
         networkService.albumDetailRequest(with: id) { [weak self] result in
