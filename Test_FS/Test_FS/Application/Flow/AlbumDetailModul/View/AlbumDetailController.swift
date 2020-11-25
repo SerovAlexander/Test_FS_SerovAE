@@ -175,5 +175,4 @@ extension AlbumDetailController: UITableViewDataSource {
 
         return cell
     }
-
 }
