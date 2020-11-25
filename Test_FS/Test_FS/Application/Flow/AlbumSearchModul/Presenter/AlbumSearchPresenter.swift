@@ -94,7 +94,7 @@ class AlbumSearchPresenter: AlbumSearchPresenterProtocol {
             guard let self = self else { return }
             switch result {
             case .success(let albums):
-                self.albums = albums
+                self.albums = albums.sorted { $1.collectionName > $0.collectionName }
                 DispatchQueue.main.async {
                     self.view?.stopIndicator()
                     self.view?.refreshData()
