@@ -16,8 +16,6 @@ final class ITunesAlbumSearchService {
 
     func albumsRequest(with query: String, then completion: @escaping CompletionAlbums) {
 
-        CancelAllRequest.cancel()
-
         let parameters = createParameters(with: query)
         let request = WebRequest(method: .get, url: Inner.searchUrl, parameters: parameters)
         
